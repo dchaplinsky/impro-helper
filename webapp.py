@@ -7,7 +7,7 @@ from werkzeug import secure_filename
 
 from reader import MusicXMLReader
 
-UPLOAD_FOLDER = 'uploads'
+UPLOAD_FOLDER = 'tmp'
 ALLOWED_EXTENSIONS = set(['xml'])
 
 app = Flask(__name__)

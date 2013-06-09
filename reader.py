@@ -12,8 +12,11 @@ class MusicXMLReader(object):
         logging.debug("Parsing file %s" % filename)
 
         try:
-            with open(filename) as fp:
-                t = etree.parse(fp)
+            if isinstance(filename, basestring):
+                with open(filename) as fp:
+                    t = etree.parse(fp)
+            else:
+                t = etree.parse(filename)
         except (IOError, etree.XMLSyntaxError):
             logging.error("Error reading file %s" % filename)
             return None

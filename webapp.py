@@ -26,16 +26,13 @@ def upload_file():
     if request.method == 'POST':
         file = request.files['file']
         if file and allowed_file(file.filename):
-            filename = os.path.join(app.config['UPLOAD_FOLDER'], secure_filename(file.filename))
-            file.save(filename)
-
             buff = StringIO()
             rootLogger = logging.getLogger()
             logHandler = logging.StreamHandler(buff)
             rootLogger.addHandler(logHandler)
             rootLogger.setLevel(logging.INFO)
 
-            MusicXMLReader(filename)
+            MusicXMLReader(file)
 
             rootLogger.removeHandler(logHandler)
             logHandler.flush()

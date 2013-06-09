@@ -1,11 +1,11 @@
-# import os
-# import logging
-# from StringIO import StringIO
+import os
+import logging
+from StringIO import StringIO
 
 from flask import Flask, request, redirect, url_for
 from werkzeug import secure_filename
 
-# from reader import MusicXMLReader
+from reader import MusicXMLReader
 
 UPLOAD_FOLDER = 'tmp'
 ALLOWED_EXTENSIONS = set(['xml'])
@@ -26,23 +26,22 @@ def upload_file():
     if request.method == 'POST':
         file = request.files['file']
         if file and allowed_file(file.filename):
-            return file.getvalue()
-            # filename = os.path.join(app.config['UPLOAD_FOLDER'], secure_filename(file.filename))
-            # file.save(filename)
+            filename = os.path.join(app.config['UPLOAD_FOLDER'], secure_filename(file.filename))
+            file.save(filename)
 
-            # buff = StringIO()
-            # rootLogger = logging.getLogger()
-            # logHandler = logging.StreamHandler(buff)
-            # rootLogger.addHandler(logHandler)
-            # rootLogger.setLevel(logging.INFO)
+            buff = StringIO()
+            rootLogger = logging.getLogger()
+            logHandler = logging.StreamHandler(buff)
+            rootLogger.addHandler(logHandler)
+            rootLogger.setLevel(logging.INFO)
 
-            # MusicXMLReader(filename)
+            MusicXMLReader(filename)
 
-            # rootLogger.removeHandler(logHandler)
-            # logHandler.flush()
-            # buff.flush()
-            # # print(buff.read())
-            # return "<pre>%s</pre>" % buff.getvalue()
+            rootLogger.removeHandler(logHandler)
+            logHandler.flush()
+            buff.flush()
+            # print(buff.read())
+            return "<pre>%s</pre>" % buff.getvalue()
     else:
         return '''
         <!doctype html>

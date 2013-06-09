@@ -4,8 +4,6 @@ from lxml import etree
 from mingus.core import notes, chords, mt_exceptions
 
 import logging
-logging.basicConfig(level=logging.WARNING)
-
 
 class MusicXMLReader(object):
     def __init__(self, filename, part=0):
@@ -48,15 +46,15 @@ class MusicXMLReader(object):
 
     def __dump_chord(self, chord):
         if self.__notes_depot:
-            print "Notes in melody are: %s" % (", ".join(self.__notes_depot))
+            logging.info("Notes in melody are: %s" % (", ".join(self.__notes_depot)))
 
         self.__notes_depot = []
 
         if chord:
             try:
                 chord_tones = chords.from_shorthand(chord)
-                print "\nChord is %s" % chord
-                print "Chord tones are: %s" % (", ".join(chord_tones))
+                logging.info("\nChord is %s" % chord)
+                logging.info("Chord tones are: %s" % (", ".join(chord_tones)))
             except mt_exceptions.FormatError:
                 logging.error("Error parsing chord symbol %s" % chord)
 
@@ -132,6 +130,7 @@ class MusicXMLReader(object):
 if __name__ == "__main__":
     import sys
     import codecs
+    logging.basicConfig(level=logging.INFO)
 
     # Printing to stdout in utf-8
     sys.stdout = codecs.getwriter('utf-8')(sys.stdout)

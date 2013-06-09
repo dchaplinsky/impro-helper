@@ -4,4 +4,6 @@ MarkupSafe==0.18
 Werkzeug==0.8.3
 distribute==0.6.31
 gunicorn==0.17.4
+lxml==3.2.1
+mingus==0.4.2.3
 wsgiref==0.1.2
